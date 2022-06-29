@@ -5,7 +5,8 @@ from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
 from qiskit.providers.ibmq import least_busy
 from qiskit.visualization import plot_histogram
 
-n=2
+# can go very high but it's expo time so it'll be very slow too
+n=6
 grover_circuit = QuantumCircuit(n)
 
 # initialize the outputs to have equal superposition
@@ -14,27 +15,54 @@ def init(qc, qubits):
 		qc.h(q)
 	return qc
 
-grover_circuit = init(grover_circuit, 2)
+grover_circuit = init(grover_circuit, n)
 grover_circuit.draw(output = "mpl")
 
+oc = QuantumCircuit(n)
+oc.cz(0, 5)
+oc.cz(1, 5)
+oc.cz(3, 5)
+oc.name = "U$_\omega$"
+oracle = oc.to_gate()
 # apply the oracle (which changes the phases of the solution state |w> = |11>)
-grover_circuit.cz(0,1)
+grover_circuit.append(oracle, [0,1,2,3,4,5])
 grover_circuit.draw(output = "mpl")
 
 # apply the diffuser
-grover_circuit.h([0,1])
-grover_circuit.z([0,1])
-grover_circuit.cz(0,1)
-grover_circuit.h([0,1])
+def diff(n):
+	qc = QuantumCircuit(n)
+	# H everyone
+	for q in range(n):
+		qc.h(q)
+	# X everyone
+	for q in range(n):
+		qc.x(q)
+	# multi-controlled Z gate
+	qc.h(n-1)
+	qc.mct(list(range(n-1)), n-1)
+	qc.h(n-1)
+	# X everyone
+	for q in range(n):
+		qc.x(q)
+	# H everyone
+	for q in range(n):
+		qc.h(q)
+	diffuser = qc.to_gate()
+	diffuser.name = "U$_s$"
+	return diffuser
+
+grover_circuit.append(diff(n), [0,1,2,3,4,5])
+grover_circuit.measure_all()
 grover_circuit.draw(output = "mpl")
+plt.show()
 
 """ SIMULATOR RUN """
-grover_circuit.measure_all()
 aer_sim = Aer.get_backend('aer_simulator')
-qobj = assemble(grover_circuit)
-result = aer_sim.run(qobj).result()
-counts = result.get_counts()
-plot_histogram(counts, color="midnightblue")
+transpiled_grover_circuit = transpile(grover_circuit, aer_sim)
+qobj = assemble(transpiled_grover_circuit)
+results = aer_sim.run(qobj).result()
+counts = results.get_counts()
+plot_histogram(counts, color="red")
 
 """ REAL QUANTUM COMPUTER (REAL) """
 provider = IBMQ.load_account()
@@ -51,5 +79,5 @@ job_monitor(job, interval=2)
 # Get the results from the computation
 results = job.result()
 answer = results.get_counts(grover_circuit)
-plot_histogram(answer)
+plot_histogram(answer, color="green")
 plt.show()
