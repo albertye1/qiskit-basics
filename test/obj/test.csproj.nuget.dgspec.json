@@ -1,0 +1,99 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/albertye/quantum/test/test.csproj": {}
+  },
+  "projects": {
+    "/Users/albertye/quantum/test/test.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/albertye/quantum/test/test.csproj",
+        "projectName": "test",
+        "projectPath": "/Users/albertye/quantum/test/test.csproj",
+        "packagesPath": "/Users/albertye/.nuget/packages/",
+        "outputPath": "/Users/albertye/quantum/test/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/albertye/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[15.3.0, )"
+            },
+            "Microsoft.Quantum.CSharpGeneration": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[0.23.195983, )",
+              "autoReferenced": true
+            },
+            "Microsoft.Quantum.Katas": {
+              "target": "Package",
+              "version": "[0.23.195983, )"
+            },
+            "Microsoft.Quantum.QSharp.Core": {
+              "target": "Package",
+              "version": "[0.23.195983, )"
+            },
+            "Microsoft.Quantum.Runtime.Core": {
+              "target": "Package",
+              "version": "[0.23.195983, )",
+              "autoReferenced": true
+            },
+            "Microsoft.Quantum.Standard": {
+              "target": "Package",
+              "version": "[0.23.195983, )"
+            },
+            "Microsoft.Quantum.Xunit": {
+              "target": "Package",
+              "version": "[0.23.195983, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/3.1.417/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
