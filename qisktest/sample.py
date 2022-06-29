@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from qiskit import QuantumCircuit, transpile
 from qiskit.providers.aer import QasmSimulator
 from qiskit.visualization import plot_histogram
@@ -33,4 +34,6 @@ counts = result.get_counts(compiled_circuit)
 print("\nTotal count for 00 and 11 are:",counts)
 
 # Draw the circuit
-circuit.draw()
+circuit.draw(output="mpl")
+# plot_histogram(counts)
+plt.show()
