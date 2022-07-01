@@ -1,0 +1,14 @@
+\section{Grover's Algorithm}
+Grover's Search Algorithm is a more efficient algo that searches through an unorganized list. Instead of running in $O(n)$, it runs in $O(\sqrt n)$.
+
+We rely on the fact that it's easy to find if a match in a database is correct once we have determined a potential match. This is done using an \vocab{oracle}, which takes an input and gives an output querying the database.
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Create equal superposition of every possible output
+    \item Run the oracle circuit on these qubits (changes the phases of the solution states). The oracle is essentially a verification system that flips phases for marked entries.
+    \item Run the diffuser algorithm
+\end{enumerate}
+
+\subsection{Complexity}
+Complexity for an $n$-bit system on Grover's Algorithm is $O(\sqrt{2^n})$ because there are $2^n$ cases to search through.
